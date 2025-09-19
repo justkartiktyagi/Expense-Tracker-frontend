@@ -1,0 +1,67 @@
+.add-balance-container {
+  margin: 20px 0;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.add-balance-container h3 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: #333;
+}
+
+.form-control {
+  margin-bottom: 15px;
+}
+
+.form-control label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.form-control input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.add-btn {
+
+  max-width: 40%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.add-btn-expense {
+
+  max-width: 40%;
+  padding: 10px;
+  background-color: rgb(215, 34, 34);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.add-btn:hover {
+  background-color: #45a049;
+}
+.add-btn-expense:hover{
+background-color: red;
+}
+
+.submitButton{
+  display: flex;
+  justify-content: space-around;
+}

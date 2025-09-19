@@ -1,0 +1,122 @@
+@import "tailwindcss";
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ 
+.balance{
+  margin-top: 10px;
+  align-items: center;
+  color: #1E2939;
+
+}
+.balance-heading{
+  color: #1E2939;
+}
+
+.IncomeExpenses{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.income{
+  font-weight: bold;
+  color: green;
+}
+
+.expense{
+  font-weight: bold;
+  color: red;
+}
+
+.headie{
+  color: #1E2939;
+}
+
+.transaction-list {
+  background-color: #ffff; /* Tailwind's bg-gray-100 */
+  color: #1E2939;
+  border-radius: 0.5rem; /* Tailwind's rounded-lg */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Tailwind's shadow */
+  padding: 1.5rem; /* Tailwind's p-6 */
+  text-align: center;
+  margin-top: 1.5rem; /* Tailwind's my-6 */
+}
+.Transaction{
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f9fafb; /* Tailwind's bg-gray-50 */
+  border-radius: 0.5rem; /* Tailwind's rounded-lg */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Tailwind's shadow */
+}
+
+.Transaction_hist{
+  color: #1E2939;
+  font-weight: bold;
+  font-size: 1.25rem; /* Tailwind's text-xl */
+  margin-bottom: 0.5rem; /* Tailwind's mb-2 */
+}
+
+.addBalance{
+  margin-top: 10px;
+}
+
+.addBalanceHeading{
+  color: #1E2939;
+  font-weight: bold;
+  font-size: 1.25rem; /* Tailwind's text-xl */
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  border: 2px dashed #ccc;
+  border-radius: 1rem;
+  background: #f9f9f9;
+  margin-top: 1rem;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.empty-image {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 1rem;
+  opacity: 0.8;
+}
+
+.empty-text {
+  font-size: 1.1rem;
+  color: #555;
+  font-weight: 500;
+}
+
+/* Optional animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.graph{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.graphText{
+
+  color: #1E2939;
+
+}
