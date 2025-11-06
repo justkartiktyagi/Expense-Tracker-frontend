@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { TransactionContext } from "../context/reactContext.jsx";
 
 const TransactionList = () => {
-  const { transactions } = useContext(TransactionContext);
+  const { transactions, handleDeleteTransaction } = useContext(TransactionContext);
   const reversedTransactions = [...transactions].reverse();
   return (
     <div className="transaction-list shadow p-6">
@@ -21,7 +21,8 @@ const TransactionList = () => {
           </p>
         </div>
       ) : (
-        <Transaction transactions={reversedTransactions} />
+        <Transaction transactions={reversedTransactions}   onDelete={(id) => handleDeleteTransaction(id)}
+ />
       )}
     </div>
   );

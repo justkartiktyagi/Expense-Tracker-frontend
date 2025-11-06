@@ -3,19 +3,19 @@ import "./AddBalance.css";
 import { TransactionContext } from "../context/reactContext.jsx";
 
 const AddBalance = () => {
-  const [text, setText] = useState("");
+  const [title, setText] = useState("");
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");
   const { addTransaction } = useContext(TransactionContext);
-  const handleIncomeSubmit = (text, amount, category) => {
-    addTransaction(text, amount, category);
+  const handleIncomeSubmit = (title, amount, category) => {
+    addTransaction(title, amount, category);
     setText("");
     setAmount("");
     setCategory("");
   };
-  const handleExpenseSubmit = (text, amount, category) => {
+  const handleExpenseSubmit = (title, amount, category) => {
     amount = -amount;
-    addTransaction(text, amount, category);
+    addTransaction(title, amount, category);
     setText("");
     setAmount("");
     setCategory("");
@@ -28,7 +28,7 @@ const AddBalance = () => {
           <label>Description</label>
           <input
             type="text"
-            value={text}
+            value={title}
             placeholder="Enter description..."
             onChange={(e) => setText(e.target.value)}
           />
@@ -66,7 +66,7 @@ const AddBalance = () => {
             className="add-btn"
             onClick={(e) => {
               e.preventDefault();
-              handleIncomeSubmit(text, amount, category);
+              handleIncomeSubmit(title, amount, category);
             }}
           >
             Income
@@ -75,7 +75,7 @@ const AddBalance = () => {
             className="add-btn-expense"
             onClick={(e) => {
               e.preventDefault();
-              handleExpenseSubmit(text, amount, category);
+              handleExpenseSubmit(title, amount, category);
             }}
           >
             Expense
