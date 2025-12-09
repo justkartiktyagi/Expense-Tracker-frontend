@@ -1,10 +1,14 @@
+import "./Header.css";
+
 const Header = () => {
   return (
-    <header className="bg-gray-800 text-white p-4 text-center shadow-white heading">
-      <h1 className="text-3xl font-bold tracking-wide">
-        💰 My Expense Tracker
-      </h1>
-      <p className="text-sm text-gray-300">Keep your budget in check</p>
+    <header className="header-container">
+      <div className="header-content">
+        <div>
+          <h1 className="header-title">💰 My Expense Tracker</h1>
+          <p className="header-subtitle">Keep your budget in check</p>
+        </div>
+      </div>
     </header>
   );
 };

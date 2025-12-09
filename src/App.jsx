@@ -11,16 +11,20 @@ import TransactionGraph from "./Components/TransactionGraph"; // adjust path if 
 function App() {
   return (
     <TransactionProvider>
-      <Header />
-      <Balance />
-      <IncomeExpense />
-      <AddBalance />
-      <TransactionList />
-      <div className="bg-white rounded-xl shadow-md p-4 mt-6 graph">
-        <h2 className="text-xl font-semibold mb-4 text-gray-800 graphText">
-          Income vs Expense
-        </h2>
-        <TransactionGraph />
+      <div className="app-wrapper">
+        <Header />
+        <div className="app-container">
+          <div className="content-grid">
+            <Balance />
+            <IncomeExpense />
+          </div>
+          <AddBalance />
+          <TransactionList />
+          <div className="graph-container">
+            <h2 className="graph-title">📊 Income vs Expense</h2>
+            <TransactionGraph />
+          </div>
+        </div>
       </div>
     </TransactionProvider>
   );
