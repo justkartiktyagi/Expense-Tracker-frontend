@@ -1,4 +1,7 @@
 import { createContext, useState, useEffect } from "react";
+import { useContext } from "react";
+import { AuthContext } from "./authContext.jsx";
+import { apiFetch } from "../utils/api";
 
 // Create the context
 export const TransactionContext = createContext();
@@ -6,19 +9,18 @@ export const TransactionContext = createContext();
 // Create the Provider component
 export const TransactionProvider = ({ children }) => {
   const [transactions, setTransactions] = useState([]);
+  const { token } = useContext(AuthContext);
 
-  const BASE_URL =
-    "https://expense-tracker-backend-1-emhh.onrender.com/expense";
-
-  // Fetch all transactions
   useEffect(() => {
-    fetch(`${BASE_URL}/`)
-      .then((res) => res.json())
-      .then((data) => {
-        setTransactions(data);
-      })
-      .catch((err) => console.error("Error fetching expenses:", err));
-  }, []);
+    if (!token) return;
+
+    const fetchExpenses = async () => {
+      const data = await apiFetch("/expense", token);
+      setTransactions(data);
+    };
+
+    fetchExpenses();
+  }, [token]);
 
   // Add a new transaction
   const addTransaction = async (title, amount, category) => {
@@ -32,36 +34,29 @@ export const TransactionProvider = ({ children }) => {
       },
     };
 
-    const response = await fetch(`${BASE_URL}/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newTransaction),
-    });
+    try {
+      const data = await apiFetch("/expense", {
+        method: "POST",
+        body: JSON.stringify(newTransaction),
+      });
 
-    if (!response.ok) {
-      console.error("Failed to add transaction");
-      return;
+      setTransactions((prev) => [...prev, data]);
+    } catch (err) {
+      console.error("Add expense failed:", err.message);
     }
-
-    const data = await response.json();
-    console.log("New expense added:", data);
-    setTransactions([...transactions, data]);
   };
 
   // Delete a transaction
   const handleDeleteTransaction = async (id) => {
-    const response = await fetch(`${BASE_URL}/${id}`, {
-      method: "DELETE",
-    });
+    try {
+      await apiFetch(`/expense/${id}`, {
+        method: "DELETE",
+      });
 
-    if (!response.ok) {
-      throw new Error("Failed to delete transaction");
+      setTransactions((prev) => prev.filter((t) => t._id !== id));
+    } catch (err) {
+      console.error("Delete failed:", err.message);
     }
-
-    setTransactions((prev) => prev.filter((t) => t._id !== id));
-    console.log("Transaction deleted successfully");
   };
 
   // Calculate income and expense
