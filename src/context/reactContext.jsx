@@ -15,7 +15,7 @@ export const TransactionProvider = ({ children }) => {
     if (!token) return;
 
     const fetchExpenses = async () => {
-      const data = await apiFetch("/expense", token);
+      const data = await apiFetch("/expense", {}, token);
       setTransactions(data);
     };
 
@@ -28,17 +28,18 @@ export const TransactionProvider = ({ children }) => {
       title,
       amount: parseFloat(amount),
       category,
-      location: {
-        lat: 28.6139 + Math.random() * 0.05, // mock lat near Delhi
-        lng: 77.209 + Math.random() * 0.05, // mock lng near Delhi
-      },
+      date: new Date(),
     };
 
     try {
-      const data = await apiFetch("/expense", {
-        method: "POST",
-        body: JSON.stringify(newTransaction),
-      });
+      const data = await apiFetch(
+        "/expense",
+        {
+          method: "POST",
+          body: JSON.stringify(newTransaction),
+        },
+        token
+      );
 
       setTransactions((prev) => [...prev, data]);
     } catch (err) {
@@ -49,9 +50,7 @@ export const TransactionProvider = ({ children }) => {
   // Delete a transaction
   const handleDeleteTransaction = async (id) => {
     try {
-      await apiFetch(`/expense/${id}`, {
-        method: "DELETE",
-      });
+      await apiFetch(`/expense/${id}`, { method: "DELETE" }, token);
 
       setTransactions((prev) => prev.filter((t) => t._id !== id));
     } catch (err) {

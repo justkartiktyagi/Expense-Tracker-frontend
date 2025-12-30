@@ -1,7 +1,7 @@
-// const Base_URL = "https://expense-tracker-backend-1-emhh.onrender.com";
-const Base_URL = "https://expense-tracker-backend-1-emhh.onrender.com";
-export const apiFetch = async (URL, token, options = {}) => {
-  const res = await fetch(`${Base_URL}${URL}`, {
+const BASE_URL = "https://expense-tracker-backend-1-emhh.onrender.com";
+
+export const apiFetch = async (endpoint, options = {}, token) => {
+  const res = await fetch(`${BASE_URL}${endpoint}`, {
     ...options,
     headers: {
       "Content-Type": "application/json",
@@ -11,6 +11,7 @@ export const apiFetch = async (URL, token, options = {}) => {
   });
 
   const data = await res.json();
+
   if (!res.ok) {
     throw new Error(data.message || "API request failed");
   }
