@@ -1,20 +1,32 @@
 import "./Auth.css";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../context/authContext";
 
 const Login = ({ onClose }) => {
   const { login } = useContext(AuthContext);
+  const [error, setError] = useState(null);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
 
+    setError(null);
     try {
       await login(email, password);
       onClose();
     } catch (err) {
-      alert(err.message);
+      if (err?.body?.errors && Array.isArray(err.body.errors)) {
+        const msgs = err.body.errors.map((e) => e.msg).join(" \n");
+        setError(msgs);
+      } else if (err?.body?.message) {
+        setError(err.body.message);
+      } else if (err?.message) {
+        setError(err.message);
+      } else {
+        setError(JSON.stringify(err));
+      }
     }
   };
 
@@ -39,6 +51,7 @@ const Login = ({ onClose }) => {
             <input id="password" name="password" type="password" required />
           </div>
 
+          {error && <div className="form-error">{error}</div>}
           <div className="auth-actions">
             <button type="button" className="auth-secondary" onClick={onClose}>
               Cancel

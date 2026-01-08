@@ -85,3 +85,16 @@
   color: #334155;
   cursor: pointer;
 }
+
+/* Inline form error message shown above actions */
+.form-error {
+  color: #b91c1c; /* red-700 */
+  background: #fff1f2; /* subtle red background */
+  border: 1px solid #fecaca;
+  padding: 8px 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  line-height: 1.2;
+  word-break: break-word;
+}

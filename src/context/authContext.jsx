@@ -29,9 +29,7 @@ export const AuthProvider = ({ children }) => {
 
     const data = await response.json();
     if (!response.ok) {
-      throw new Error(
-        data?.errors?.[0]?.msg || data.message || "signup failed"
-      );
+      throw { status: response.status, body: data };
     }
 
     return data;
@@ -48,7 +46,7 @@ export const AuthProvider = ({ children }) => {
 
     const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.message || "Login failed");
+      throw { status: response.status, body: data };
     }
     setToken(data.token);
     setUser(data.user);

@@ -1,8 +1,9 @@
 import "./Auth.css";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../context/authContext";
 const Signup = ({ onClose }) => {
   const { signup } = useContext(AuthContext);
+  const [error, setError] = useState(null);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -11,15 +12,25 @@ const Signup = ({ onClose }) => {
     const password = form.password.value;
     const confirmpassword = form.confirmpassword.value;
 
+    setError(null);
     if (password !== confirmpassword) {
-      alert("Passwords do not match");
+      setError("Passwords do not match");
       return;
     }
     try {
       await signup(name, email, password, confirmpassword);
       onClose();
     } catch (err) {
-      alert(err.message);
+      if (err?.body?.errors && Array.isArray(err.body.errors)) {
+        const msgs = err.body.errors.map((e) => e.msg).join(" \n");
+        setError(msgs);
+      } else if (err?.body?.message) {
+        setError(err.body.message);
+      } else if (err?.message) {
+        setError(err.message);
+      } else {
+        setError(JSON.stringify(err));
+      }
     }
   };
   return (
@@ -57,6 +68,7 @@ const Signup = ({ onClose }) => {
             />
           </div>
 
+          {error && <div className="form-error">{error}</div>}
           <div className="auth-actions">
             <button type="button" className="auth-secondary" onClick={onClose}>
               Cancel
